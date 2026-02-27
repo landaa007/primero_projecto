@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 export default function Home() {
   // --- 1. ÉTATS D'AUTHENTIFICATION ---
@@ -39,7 +40,7 @@ export default function Home() {
     try {
       const endpoint = isRegister ? '/auth/register' : '/auth/login';
       // On appelle le backend (Port 5000)
-      const res = await axios.post(`http://localhost:5000${endpoint}`, { email, password });
+      const res = await axios.post(`${API_URL}${endpoint}`, { email, password });
       
       if (isRegister) {
         alert("Compte créé avec succès ! Connecte-toi maintenant.");
@@ -67,7 +68,7 @@ export default function Home() {
   // --- 5. FONCTIONS DE GESTION DES CHATS (SIDEBAR) ---
   const loadChats = async (userToken: string) => {
     try {
-      const res = await axios.get("http://localhost:5000/chats", {
+      const res = await axios.get("${API_URL}/chats", {
         headers: { Authorization: `Bearer ${userToken}` }
       });
       setChats(res.data);
@@ -77,7 +78,7 @@ export default function Home() {
   const createNewChat = async () => {
     if (!token) return;
     try {
-      const res = await axios.post("http://localhost:5000/chats", {}, {
+      const res = await axios.post("${API_URL}/chats", {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setChats([res.data, ...chats]); // Ajoute le nouveau chat en haut
@@ -90,7 +91,7 @@ export default function Home() {
     if (!token) return;
     setCurrentChatId(chatId);
     try {
-      const res = await axios.get(`http://localhost:5000/chats/${chatId}/messages`, {
+      const res = await axios.get(`${API_URL}/chats/${chatId}/messages`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMessages(res.data);
@@ -115,7 +116,7 @@ export default function Home() {
 
     try {
       // ON UTILISE FETCH (et pas Axios) POUR LE STREAMING
-      const response = await fetch(`http://localhost:5000/chats/${currentChatId}/messages`, {
+      const response = await fetch(`${API_URL}/chats/${currentChatId}/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
