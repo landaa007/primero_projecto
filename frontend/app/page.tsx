@@ -67,7 +67,7 @@ export default function Home() {
   // --- 5. FONCTIONS DE GESTION DES CHATS (SIDEBAR) ---
   const loadChats = async (userToken: string) => {
     try {
-      const res = await axios.get("${API_URL}/chats", {
+      const res = await axios.get(`${API_URL}/chats`, {
         headers: { Authorization: `Bearer ${userToken}` }
       });
       setChats(res.data);
@@ -77,7 +77,7 @@ export default function Home() {
   const createNewChat = async () => {
     if (!token) return;
     try {
-      const res = await axios.post("${API_URL}/chats", {}, {
+      const res = await axios.post(`${API_URL}/chats`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setChats([res.data, ...chats]); // Ajoute le nouveau chat en haut
