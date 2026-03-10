@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+const API_URL ="//backend-ai-42189349850.northamerica-northeast1.run.app";
 
 export default function Home() {
   // --- 1. ÉTATS D'AUTHENTIFICATION ---
