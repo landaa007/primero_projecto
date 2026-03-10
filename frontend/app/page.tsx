@@ -1,8 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-const API_URL ="//backend-ai-42189349850.northamerica-northeast1.run.app";
-
+const API_URL = "https://backend-ai-42189349850.northamerica-northeast1.run.app";
 export default function Home() {
   // --- 1. ÉTATS D'AUTHENTIFICATION ---
   const [token, setToken] = useState<string | null>(null);
